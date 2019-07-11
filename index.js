@@ -1,6 +1,6 @@
 const Koa = require('koa');
 const Router = require('koa-router');
-const BodyParser = require('koa-body');
+const BodyParser = require('koa-bodyparser');
 
 const app = new Koa();
 const router = new Router();
@@ -29,10 +29,10 @@ router.get('/', (ctx, next) => {
    ctx.body = "Hi, I'm a endpoint"
 });
 
+router.use('/api/v1', tasks.routes());
 app.use(router.allowedMethods());
 app.use(BodyParser());
 app.use(router.routes());
-app.use(tasks.routes());
 
 app.listen(3000, () => {
     console.log("Server running at port 3000");
